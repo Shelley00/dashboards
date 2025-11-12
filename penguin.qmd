@@ -1,0 +1,39 @@
+---
+title: "Penguin Dashboards"
+format: dashboard
+---
+
+```{r}
+library(tidyverse)
+library(plotly)
+library(janitor)
+
+penguins <- read_csv("data/penguins_lter.csv")
+
+penguins <- penguins %>%
+  clean_names()
+```
+
+## Row 1
+
+```{r}
+p <- ggplot(penguins, aes(species, culmen_length_mm )) +
+  geom_boxplot()
+  
+ggplotly(p)
+```
+
+```{r}
+p <- ggplot(penguins, aes(culmen_length_mm, culmen_depth_mm, color = island)) +
+  geom_point()
+ggplotly(p)
+```
+
+## Row 2
+
+```{r}
+penguins <- penguins %>%
+  select(-c(comments, sex, body_mass_g))
+
+knitr::kable(penguins) 
+```
