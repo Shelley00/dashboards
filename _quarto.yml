@@ -5,15 +5,14 @@ project:
 website:
   title: "dashboards"
   navbar:
-    left:
-      - href: index.qmd
+    right:
+      - href: penguin.qmd
         text: Home
-      - about.qmd
-
+      
 format:
   html:
-    theme:
-      - cosmo
+    theme: 
+      - green
       - brand
     css: styles.css
     toc: true

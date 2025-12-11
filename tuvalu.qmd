@@ -1,0 +1,61 @@
+---
+title: "My Dashboard"
+format: dashboard
+---
+
+```{r}
+library(tidyverse)
+library(plotly)
+library(janitor)
+library(ggplot2)
+
+tuvalu <- read_csv("data/tuvalu.csv")
+
+
+tuvalu <- tuvalu %>%
+  clean_names()
+
+```
+
+## Row 1
+
+These visuals represent the amount of plastics, or garbage in those countries (mainly islands in the Pacific region).
+
+-   the first graph about the amount of plastics and chemicals in a country.
+
+-   the second graph about the amount of plastics and garbage in a country.
+
+-   the last graph about the amount of plastics found in a country.
+
+```{r}
+p <- ggplot(tuvalu, aes(chemicals, plastics, color = country)) +
+  geom_point()
+labs(title = "Scatterplot of plastics in a country",
+       x = "Chemicals",
+       y = "plastics")
+ggplotly(p)
+
+```
+
+## Row 2
+
+```{r}
+p <- ggplot(tuvalu, aes(x = chemicals, y = general_garbage)) +
+  geom_point(color = "black") +
+  geom_smooth(method = "lm", se = FALSE, color = "purple") +
+  labs(title = "Scatterplot with Trend Line",
+       x = "Chemicals",
+       y = "general_garbage")
+
+ggplotly(p)
+```
+
+```{r}
+p2 <- ggplot(tuvalu, aes(x = country, y = plastics)) +
+  geom_bar(stat = "identity", fill = "lightblue", color = "black") +
+  labs(title = "Plastics in the Pacific", x = "country", y = "plastics") +
+  theme(axis.text.x = element_text(angle = 45, vjust = .5, hjust = 1)) 
+
+
+ggplotly(p2)
+```

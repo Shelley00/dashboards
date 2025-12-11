@@ -1,11 +1,45 @@
 ---
-title: "dashboards"
+title: "Star Wars Dashboard"
+format: dashboard
 ---
 
-This is a Quarto website.
+## Row 1
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+```{r, echo=FALSE}
+library(tidyverse)
+library(plotly)
+
+```
 
 ```{r}
-1 + 1
+
+ggplot(data = starwars, aes(x = mass, y = height)) +
+  geom_point()
+
+
+
+```
+
+starwars \<- starwars %\>%
+
+select(name, height, mass, gender, homeworld, species)
+
+ggplotly(p2)
+
+## Row 2
+
+```{r}
+
+p2 <- ggplot(data = starwars, aes(x = name, y = height)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, vjust = .5, hjust = 1 ))
+
+ggplotly(p2)
+```
+
+```{r}
+starwars <- starwars %>% 
+  select(name, height, mass, gender, homeworld, species)
+
+knitr::kable(starwars)
 ```
